@@ -1,0 +1,30 @@
+name: Maven Compilation
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  Compile:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: ['Windows', 'Ubuntu', 'MacOS']
+        jdk: [8, 11, 17]
+    name: ${{matrix.platform}} - JDK${{matrix.jdk}}
+    runs-on: ${{matrix.platform}}-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Use JDK${{matrix.jdk}}
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{matrix.jdk}}
+          distribution: corretto
+          cache: maven
+      - name: Get Java Version
+        run: |
+          java -version
+          javac -version
+      - name: Compile with Maven
+        run: mvn -B -e clean compile
