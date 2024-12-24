@@ -10,7 +10,7 @@ jobs:
       fail-fast: false
       matrix:
         platform: ['Windows', 'Ubuntu', 'MacOS']
-        jdk: [8, 11, 17]
+        jdk: [8, 11, 17, 21]
     name: ${{matrix.platform}} - JDK${{matrix.jdk}}
     runs-on: ${{matrix.platform}}-latest
     steps:
