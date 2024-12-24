@@ -11,6 +11,10 @@ jobs:
       matrix:
         platform: ['Windows', 'Ubuntu', 'MacOS']
         jdk: [8, 11, 17, 21]
+        exclude:
+          # The MacOS Version of Corretto JDK8 Doesn't Contain JavaFX
+          - platform: MacOS
+            jdk: 8
     name: ${{matrix.platform}} - JDK${{matrix.jdk}}
     runs-on: ${{matrix.platform}}-latest
     steps:
